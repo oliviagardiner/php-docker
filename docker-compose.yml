@@ -13,7 +13,9 @@ services:
       - mariadb
 
   php-fpm:
-    image: php:8-fpm
+    image: php-fpm
+    build:
+      context: ./docker
     env_file:
       - .env
     volumes:
