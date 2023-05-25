@@ -6,7 +6,7 @@ services:
     ports:
       - '8080:80'
     volumes:
-      - ./src:/var/www/html
+      - ./src:/var/www/src
       - ./vendor:/var/www/vendor
       - ./config/nginx.conf:/etc/nginx/conf.d/default.conf
     links:
@@ -14,13 +14,16 @@ services:
       - mariadb
 
   php-fpm:
-    image: php:8-fpm
+    image: php-fpm
+    build:
+      context: ./docker
     env_file:
       - .env
     volumes:
       - ./app:/var/www/app
-      - ./src:/var/www/html
+      - ./src:/var/www/src
       - ./vendor:/var/www/vendor
+      - ./cli-config.php:/var/www/cli-config.php
     depends_on:
       - mariadb
 

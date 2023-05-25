@@ -11,11 +11,14 @@ docker compose up -d
 
 ## Doctrine
 
-https://www.slimframework.com/docs/v4/cookbook/database-doctrine.html
+Run Doctrine commands inside the application container's /var/www directory.
 
 ```
-php vendor/bin/doctrine
+cd ../
+php vendor/bin/doctrine orm:schema-tool:create --dump-sql
 ```
+
+https://www.slimframework.com/docs/v4/cookbook/database-doctrine.html
 
 ## Browser
 

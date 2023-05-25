@@ -1,8 +1,9 @@
 <?php
 
-define('APP_ROOT', __DIR__);
+define('APP_ROOT', __DIR__ . '/..');
 
 use Doctrine\Common\Cache\Psr6\DoctrineProvider;
+use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
@@ -10,16 +11,15 @@ use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 
 $doctrine = [
     'env' => 'dev',
-    'cache_dir' => APP_ROOT . '/var/doctrine',
-    'metadata_dirs' => [APP_ROOT . '/src/Domain'],
+    'cache_dir' => APP_ROOT . '/var/www/doctrine',
+    'metadata_dirs' => [APP_ROOT . '/src/Entity'],
     'connection' => [
         'driver' => 'pdo_mysql',
         'host' => $_ENV['DB_HOST'],
         'port' => $_ENV['DB_PORT'],
         'dbname' => $_ENV['DB_NAME'],
         'user' => $_ENV['DB_USER'],
-        'password' => $_ENV['DB_PASSWORD'],
-        'charset' => 'utf-8'
+        'password' => $_ENV['DB_PASSWORD']
     ]
 ];
 
@@ -40,6 +40,8 @@ return [
             $cache
         );
 
-        return EntityManager::create($doctrine['connection'], $config);
+        $conn = DriverManager::getConnection($doctrine['connection'], $config);
+
+        return EntityManager::create($conn, $config);
     }
 ];
