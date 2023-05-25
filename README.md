@@ -2,6 +2,8 @@
 
 ## Setup
 
+Rename `.env.dist` to `.env` and create your custom values.
+
 ```
 composer install
 docker compose up -d
