@@ -1,6 +1,8 @@
 # php-docker
 
-Setup:
+## Setup
+
+Rename `.env.dist` to `.env` and configure your own values.
 
 ```
 docker compose up -d
